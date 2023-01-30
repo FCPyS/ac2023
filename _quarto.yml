@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: "docs"
+
+website:
+  title: "AC-2023"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Inicio
+      - href: equipo.qmd
+        text: Equipo docente
+      - href: about.qmd
+        text: Programa 
+
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+
