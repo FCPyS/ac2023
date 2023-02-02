@@ -16,6 +16,8 @@ website:
         text: Equipo docente
       - href: about.qmd
         text: Programa 
+      - href: clases.qmd
+        text: Clases 
 
 
 format:
