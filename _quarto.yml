@@ -18,6 +18,16 @@ website:
         text: Programa 
       - href: clases.qmd
         text: Clases 
+  sidebar:
+    style: "floating"
+    search: true
+    contents:
+      - section: "Instalar R"
+        contents:
+          - instala.qmd
+      - section: "Talleres"
+        contents:
+          - P1.qmd
 
 
 format:

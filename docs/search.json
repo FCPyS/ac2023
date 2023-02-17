@@ -35,11 +35,39 @@
     "text": "Biblio básica\n\nDrive"
   },
   {
+    "objectID": "instala.html",
+    "href": "instala.html",
+    "title": "AC-2023",
+    "section": "",
+    "text": "Desde octubre de 2022, RStudio se volvió “Posit”"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "Programa de trabajo",
     "section": "",
     "text": "El programa de trabajo se puede consultar acá"
+  },
+  {
+    "objectID": "P1.html",
+    "href": "P1.html",
+    "title": "Taller 1",
+    "section": "",
+    "text": "En RStudio podemos tener varias ventanas que nos permiten tener más control de nuestro “ambiente”, el historial, los “scripts” o códigos que escribimos y por supuesto, tenemos nuestra consola, que también tiene el símbolo “>” con R. Podemos pedir operaciones básicas\n\n2+5\n\n[1] 7\n\n5*3\n\n[1] 15\n\n#Para escribir comentarios y que no los lea como operaciones ponemos el símbolo de gato\n# Lo podemos hacer para un comentario en una línea o la par de una instrucción\n1:5               # Secuencia 1-5\n\n[1] 1 2 3 4 5\n\nseq(1, 10, 0.5)   # Secuencia con incrementos diferentes a 1\n\n [1]  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0\n[16]  8.5  9.0  9.5 10.0\n\nc('a','b','c')  # Vector con caracteres\n\n[1] \"a\" \"b\" \"c\"\n\n1:7             # Entero\n\n[1] 1 2 3 4 5 6 7\n\n40<80           # Valor logico\n\n[1] TRUE\n\n2+2 == 5        # Valor logico\n\n[1] FALSE\n\nT == TRUE       # T expresion corta de verdadero\n\n[1] TRUE\n\n\nR es un lenguaje de programación por objetos. Por lo cual vamos a tener objetos a los que se les asigna su contenido. Si usamos una flechita “<-” o “->” le estamos asignando algo al objeto que apunta la felcha.\n\nx <- 24         # Asignacion de valor 24 a la variable x para su uso posterior (OBJETO)\nx/2             # Uso posterior de variable u objeto x\n\n[1] 12\n\nx               # Imprime en pantalla el valor de la variable u objeto\n\n[1] 24\n\nx <- TRUE       # Asigna el valor logico TRUE a la variable x OJO: x toma el ultimo valor que se le asigna\nx\n\n[1] TRUE"
+  },
+  {
+    "objectID": "P1.html#vectores",
+    "href": "P1.html#vectores",
+    "title": "Taller 1",
+    "section": "Vectores",
+    "text": "Vectores\nLos vectores son uno de los objetos más usados en R.\n\ndado<-1:6  # vector numérico\npluscuamperfecto <- \"hola\" # el nombre puede ser más grande\n\nmoneda<-c(\"Aguila\", \"Sol\") # un objecto que tiene un vector de caracter"
+  },
+  {
+    "objectID": "P1.html#muestreo-aleatorio",
+    "href": "P1.html#muestreo-aleatorio",
+    "title": "Taller 1",
+    "section": "Muestreo aleatorio",
+    "text": "Muestreo aleatorio\nPodemos usar la función {sample()}\n\nsample(1:19, size=1)\n\n[1] 3\n\nsample(x=c(\"Erick\", \"Emmanuel\", \"Scandra\", \"Daniela\", \"Alberto\"),\n       size=2)\n\n[1] \"Emmanuel\" \"Daniela\" \n\nsample( x =1:6, \n       size = 10,\n       replace = T,\n       prob= c(1/5,1/5,1/5, 0, 1/5, 1/5))\n\n [1] 3 1 6 3 5 6 1 2 3 3\n\nsample(x = moneda,\n       size = 15,\n       replace = TRUE)\n\n [1] \"Aguila\" \"Sol\"    \"Sol\"    \"Sol\"    \"Aguila\" \"Sol\"    \"Aguila\" \"Aguila\"\n [9] \"Sol\"    \"Sol\"    \"Sol\"    \"Sol\"    \"Sol\"    \"Aguila\" \"Sol\""
   },
   {
     "objectID": "equipo.html",
