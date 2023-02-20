@@ -48,6 +48,7 @@ moneda<-c("Aguila", "Sol") # un objecto que tiene un vector de caracter
 ## Muestreo aleatorio
 
 Podemos usar la función `{sample()}`
+
 ```{r}
 
 sample(1:19, size=1)
@@ -66,4 +67,3 @@ sample(x = moneda,
        replace = TRUE)
 
 ```
-
