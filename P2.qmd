@@ -14,7 +14,7 @@ Los paquetes los podemos instalar ya sea en el menú de paquetes en la ventana d
 
 Y se verá algo así en la consola
 
-"[Paso4](ima/paquete4.png)
+![Paso4](ima/paquete4.png)
 
 Esto es igual que instalemos los paquetes con comandos:
 
