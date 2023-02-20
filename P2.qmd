@@ -6,12 +6,15 @@ title: "Taller 2"
 
 Los paquetes los podemos instalar ya sea en el menú de paquetes en la ventana del lado derecho inferior (si tienes la configuración original) o podemos hacerlo por comandos. 
 
-![Paso1](ima/paquete1.png)
-![Paso2](ima/paquete2.png)
-![Paso3](ima/paquete3.png)
+[Paso1](ima/paquete1.png)
+
+[Paso2](ima/paquete2.png)
+
+[Paso3](ima/paquete3.png)
+
 Y se verá algo así en la consola
 
-![Paso4](ima/paquete4.png)
+[Paso4](ima/paquete4.png)
 Esto es igual que instalemos los paquetes con comandos
 
 ```
@@ -42,6 +45,9 @@ Hay muchos formatos de almacenamiento de bases de datos. Vamos a aprender a impo
 
 
 ## Datos para el curso
+
+Estos los puedes descargar desde el repo de la clase que hizo la profe
+<https://github.com/FCPyS/ac2023/tree/main/datos>
 
 
 ### Desde Excel
