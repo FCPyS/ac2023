@@ -1,0 +1,163 @@
+---
+title: "Taller 2"
+---
+
+## Paquetes ---
+```{r}
+if (!require("pacman")) install.packages("pacman") # instala pacman si se requiere
+pacman::p_load(tidyverse, readxl, writexl, haven, sjlabelled, pollster, magrittr) #carga los paquetes listados
+
+```
+
+Hay muchos formatos de almacenamiento de bases de datos. Vamos a aprender a importar información desde ellos.
+
+## Datos para el curso
+
+```{r 3}
+ICE_2022 <- readxl::read_excel("datos/ICE_2022.xlsx", sheet = "para_importar")
+
+```
+
+```{r}
+lapop2021 <- haven::read_dta("datos/lapop2021.dta")
+```
+
+
+## Descriptivos para variables cuantitativas
+
+Vamos a empezar a revisar los gráficos para variables cuantitativas.
+
+### Medidas numéricas básicas
+
+5 números
+
+```{r}
+summary(lapop2021$q2) ## 
+```
+
+Con pipes se pueden crear "indicadores" de nuestras variables es un tibble
+
+```{r}
+lapop2021 %>% 
+  summarise(nombre_indicador=mean(q2, na.rm=T))
+```
+
+### Histograma básico
+
+```{r}
+hist(lapop2021$q2)
+```
+
+
+Le podemos modificar el título del eje de las x y de las y
+
+```{r}
+hist(lapop2021$q2, 
+     main="Histograma de las edades de los entrevistados", 
+     xlab="Años cumplidos", ylab="Frecuencia") 
+```
+
+
+##  Tabulados bivariados 
+
+```{r}
+
+# tabla cruzada sin factor
+lapop2021 %>% 
+  dplyr::mutate(q1tb=sjlabelled::as_label(q1tb)) %>% 
+  dplyr::mutate(idio2=sjlabelled::as_label(idio2)) %>% 
+  janitor::tabyl(idio2, q1tb)
+
+# tabulado con factor de expansión
+
+lapop2021 %>% 
+  dplyr::mutate(q1tb=sjlabelled::as_label(q1tb)) %>% 
+  dplyr::mutate(idio2=sjlabelled::as_label(idio2)) %>% 
+  pollster::crosstab(idio2, q1tb, weight = wt)
+  
+
+```
+
+
+## Ojeando
+
+```{r}
+dplyr::glimpse(lapop2021)
+dplyr::glimpse(lapop2021[,20:30]) # en corchete del lado derecho podemos ojear columnas 
+
+```
+
+Podemos hacer un tipo "labelbook", usando una función que viene de la librería "sjlabelled", "get_labels". Funciona para toda la base o para columnas, o para variables.
+
+```{r}
+#print(get_labels(lapop2021)) #todas
+print(get_labels(lapop2021[, 20:30])) #de las segundas 10 variables
+```
+
+En singular nos da las etiquetas de las variables, no de los valores:
+
+```{r}
+#print(get_label(lapop2021)) #todas
+print(get_label(lapop2021[, 1:10])) #de las primeras 10 variables
+print(get_label(lapop2021$q2)) #
+```
+
+### Selección de casos y de variables
+
+Poco a poco vamos comprendiendo más la lógica de R. Hay varias "formas" de programar. Por lo que no te asustes si varios códigos llegan al mismo resultado
+
+Para revisar el contenido de un data frame podemos usar, como lo hicimos anteriormente, el formato basedq2tos\$var o usar corchete, checa como estas cuatro formas tan el mismo resultado.
+
+```{r}
+x<-lapop2021$q2
+x<-lapop2021[["q2"]]  # ¡Ojo con las comillas! 
+x<-lapop2021[,13]
+x<-lapop2021[,"q2"]
+
+```
+
+Ahora, con el formato de dplyr podemos llegar a lo mismo
+
+```{r}
+x<-lapop2021 %>% 
+  select(q2)
+```
+
+## Limpieza de nombres
+
+A este data.frame podemos limpiarle los nombres, como vemos, sus nombres están "raros". Esto pasa cuando usamos espacios, caracteres especiales o nombres muy largos.
+
+Veamos los nombre
+
+```{r}
+ICE_2022 %>% 
+  names()
+```
+
+los vamos a limpiar:
+
+```{r}
+ICE_2022 %>% 
+  janitor::clean_names() %>% 
+  names()
+```
+
+Pero! Tenemos que volver a declarar el objeto con los cambios para que se guarden en el objeto
+
+```{r}
+ICE_2022<-ICE_2022 %>% 
+  janitor::clean_names()
+```
+
+## Otro operador
+
+Esta operación de guardar las acciones del *pipe* `%>%` en el mismo objeto del que inician, se puede hacer con otro operador muy parecido `%<>%`
+
+```{r}
+ICE_2022 %<>% 
+  janitor::clean_names()
+```
+
+
+
+¡Llevemos esta base a esquisse!
