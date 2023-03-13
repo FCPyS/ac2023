@@ -67,7 +67,7 @@
     "href": "P1.html#muestreo-aleatorio",
     "title": "Taller 1",
     "section": "Muestreo aleatorio",
-    "text": "Muestreo aleatorio\nPodemos usar la función {sample()}\n\nsample(1:19, size=1)\n\n[1] 1\n\nsample(x=c(\"Erick\", \"Emmanuel\", \"Scandra\", \"Daniela\", \"Alberto\"),\n       size=2)\n\n[1] \"Emmanuel\" \"Scandra\" \n\nsample( x =1:6, \n       size = 10,\n       replace = T,\n       prob= c(1/5,1/5,1/5, 0, 1/5, 1/5))\n\n [1] 1 6 6 5 2 2 3 2 6 1\n\nsample(x = moneda,\n       size = 15,\n       replace = TRUE)\n\n [1] \"Aguila\" \"Aguila\" \"Sol\"    \"Sol\"    \"Sol\"    \"Sol\"    \"Sol\"    \"Aguila\"\n [9] \"Sol\"    \"Sol\"    \"Sol\"    \"Aguila\" \"Aguila\" \"Sol\"    \"Aguila\""
+    "text": "Muestreo aleatorio\nPodemos usar la función {sample()}\n\nsample(1:19, size=1)\n\n[1] 6\n\nsample(x=c(\"Erick\", \"Emmanuel\", \"Scandra\", \"Daniela\", \"Alberto\"),\n       size=2)\n\n[1] \"Daniela\"  \"Emmanuel\"\n\nsample( x =1:6, \n       size = 10,\n       replace = T,\n       prob= c(1/5,1/5,1/5, 0, 1/5, 1/5))\n\n [1] 2 2 1 5 6 2 3 5 2 6\n\nsample(x = moneda,\n       size = 15,\n       replace = TRUE)\n\n [1] \"Aguila\" \"Sol\"    \"Sol\"    \"Sol\"    \"Aguila\" \"Aguila\" \"Aguila\" \"Sol\"   \n [9] \"Sol\"    \"Aguila\" \"Sol\"    \"Sol\"    \"Sol\"    \"Aguila\" \"Aguila\""
   },
   {
     "objectID": "P2.html",
