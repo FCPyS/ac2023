@@ -245,9 +245,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#histograma-básico" id="toc-histograma-básico" class="nav-link" data-scroll-target="#histograma-básico">Histograma básico</a></li>
   </ul></li>
   <li><a href="#tabulados-bivariados" id="toc-tabulados-bivariados" class="nav-link" data-scroll-target="#tabulados-bivariados">Tabulados bivariados</a></li>
-  <li><a href="#ojeando" id="toc-ojeando" class="nav-link" data-scroll-target="#ojeando">Ojeando</a>
+  <li><a href="#ojeando" id="toc-ojeando" class="nav-link" data-scroll-target="#ojeando">Ojeando</a></li>
+  <li><a href="#selección-de-casos-y-de-variables" id="toc-selección-de-casos-y-de-variables" class="nav-link" data-scroll-target="#selección-de-casos-y-de-variables">Selección de casos y de variables</a>
   <ul class="collapse">
-  <li><a href="#selección-de-casos-y-de-variables" id="toc-selección-de-casos-y-de-variables" class="nav-link" data-scroll-target="#selección-de-casos-y-de-variables">Selección de casos y de variables</a></li>
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><code>{select()}</code></a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><code>{filter()}</code></a></li>
   </ul></li>
   <li><a href="#limpieza-de-nombres" id="toc-limpieza-de-nombres" class="nav-link" data-scroll-target="#limpieza-de-nombres">Limpieza de nombres</a></li>
   <li><a href="#otro-operador" id="toc-otro-operador" class="nav-link" data-scroll-target="#otro-operador">Otro operador</a></li>
@@ -334,7 +336,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Le podemos modificar el título del eje de las x y de las y</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(lapop2021<span class="sc">$</span>q2, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Histograma de las edades de los entrevistados"</span>, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Histograma de las q2des de los entrevistados"</span>, </span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Años cumplidos"</span>, <span class="at">ylab=</span><span class="st">"Frecuencia"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="P3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
@@ -722,8 +724,9 @@ $chm2bn
 <pre><code>[1] "Edad"</code></pre>
 </div>
 </div>
-<section id="selección-de-casos-y-de-variables" class="level3">
-<h3 class="anchored" data-anchor-id="selección-de-casos-y-de-variables">Selección de casos y de variables</h3>
+</section>
+<section id="selección-de-casos-y-de-variables" class="level2">
+<h2 class="anchored" data-anchor-id="selección-de-casos-y-de-variables">Selección de casos y de variables</h2>
 <p>Poco a poco vamos comprendiendo más la lógica de R. Hay varias “formas” de programar. Por lo que no te asustes si varios códigos llegan al mismo resultado</p>
 <p>Para revisar el contenido de un data frame podemos usar, como lo hicimos anteriormente, el formato basedq2tos$var o usar corchete, checa como estas cuatro formas tan el mismo resultado.</p>
 <div class="cell">
@@ -732,10 +735,138 @@ $chm2bn
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span>lapop2021[,<span class="dv">13</span>]</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span>lapop2021[,<span class="st">"q2"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="select" class="level3">
+<h3 class="anchored" data-anchor-id="select"><code>{select()}</code></h3>
 <p>Ahora, con el formato de dplyr podemos llegar a lo mismo</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span>lapop2021 <span class="sc">%&gt;%</span> </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(q2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="filter" class="level3">
+<h3 class="anchored" data-anchor-id="filter"><code>{filter()}</code></h3>
+<p>Los filtros seleccionan <strong>casos</strong> que cumplen con una condición.</p>
+<ul>
+<li><p>Se pueden usar varias condiciones con los operadores <code>&amp;</code> y <code>|</code></p></li>
+<li><p>Se puede negar una condición con el operador <code>!</code></p></li>
+<li><p>El operador <code>%in%</code> o <code>match</code> puede combinarse con vectores como listas de elementos válidos en una variable</p></li>
+</ul>
+<p>Aquí unos ejemplos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>lapop2021 <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(q2<span class="sc">&gt;</span><span class="dv">14</span>) <span class="co"># cumple con la condición de mayores de 14 años </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,998 × 262
+    idnum     uniq_id pais        year  wave nationality estrato…¹ strata    upm
+    &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl+lbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl+lbl&gt;   &lt;dbl+lbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 151925 21010151925 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.04e7
+ 2 231570 21010231570 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.01e7
+ 3 155969 21010155969 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.02e7
+ 4  69495 21010069495 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.02e7
+ 5 387944 21010387944 1 [México]  2021  2021 1 [Mexican… 104 [Sur] 1.00e8 1.03e7
+ 6 179554 21010179554 1 [México]  2021  2021 1 [Mexican… 104 [Sur] 1.00e8 1.01e7
+ 7 256258 21010256258 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.02e7
+ 8 243213 21010243213 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.01e7
+ 9 350983 21010350983 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.04e7
+10 390491 21010390491 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.03e7
+# … with 2,988 more rows, 253 more variables: prov1t &lt;dbl+lbl&gt;,
+#   ur1new &lt;dbl+lbl&gt;, q1tb &lt;dbl+lbl&gt;, q2 &lt;dbl&gt;, wt &lt;dbl&gt;, weight1500 &lt;dbl&gt;,
+#   core_a_core_b &lt;chr&gt;, municipio1t &lt;dbl+lbl&gt;, a4 &lt;dbl+lbl&gt;,
+#   covid2at &lt;dbl+lbl&gt;, idio2 &lt;dbl+lbl&gt;, idio2cov &lt;dbl+lbl&gt;, fs2 &lt;dbl+lbl&gt;,
+#   fs2covidn &lt;dbl+lbl&gt;, it1 &lt;dbl+lbl&gt;, jc13 &lt;dbl+lbl&gt;, jc15a &lt;dbl+lbl&gt;,
+#   vic1ext &lt;dbl+lbl&gt;, aoj11 &lt;dbl+lbl&gt;, chm1bn &lt;dbl+lbl&gt;, chm2bn &lt;dbl+lbl&gt;,
+#   cses6n &lt;dbl+lbl&gt;, b0t &lt;dbl+lbl&gt;, b2 &lt;dbl+lbl&gt;, b3 &lt;dbl+lbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>lapop2021 <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span>q2<span class="sc">&gt;</span><span class="dv">14</span>) <span class="co"># NO cumple con la condición de mayores de 14 años</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 262
+# … with 262 variables: idnum &lt;dbl&gt;, uniq_id &lt;dbl&gt;, pais &lt;dbl+lbl&gt;, year &lt;dbl&gt;,
+#   wave &lt;dbl&gt;, nationality &lt;dbl+lbl&gt;, estratopri &lt;dbl+lbl&gt;, strata &lt;dbl&gt;,
+#   upm &lt;dbl&gt;, prov1t &lt;dbl+lbl&gt;, ur1new &lt;dbl+lbl&gt;, q1tb &lt;dbl+lbl&gt;, q2 &lt;dbl&gt;,
+#   wt &lt;dbl&gt;, weight1500 &lt;dbl&gt;, core_a_core_b &lt;chr&gt;, municipio1t &lt;dbl+lbl&gt;,
+#   a4 &lt;dbl+lbl&gt;, covid2at &lt;dbl+lbl&gt;, idio2 &lt;dbl+lbl&gt;, idio2cov &lt;dbl+lbl&gt;,
+#   fs2 &lt;dbl+lbl&gt;, fs2covidn &lt;dbl+lbl&gt;, it1 &lt;dbl+lbl&gt;, jc13 &lt;dbl+lbl&gt;,
+#   jc15a &lt;dbl+lbl&gt;, vic1ext &lt;dbl+lbl&gt;, aoj11 &lt;dbl+lbl&gt;, chm1bn &lt;dbl+lbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>lapop2021 <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(q2<span class="sc">&gt;</span><span class="dv">14</span> <span class="sc">&amp;</span> q1tb<span class="sc">==</span><span class="dv">2</span>) <span class="co"># la condición que sea mujer Y mayor de 14 años</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,436 × 262
+    idnum     uniq_id pais        year  wave nationality estrato…¹ strata    upm
+    &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl+lbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl+lbl&gt;   &lt;dbl+lbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 151925 21010151925 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.04e7
+ 2 231570 21010231570 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.01e7
+ 3 155969 21010155969 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.02e7
+ 4  69495 21010069495 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.02e7
+ 5 179554 21010179554 1 [México]  2021  2021 1 [Mexican… 104 [Sur] 1.00e8 1.01e7
+ 6 256258 21010256258 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.02e7
+ 7 390491 21010390491 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.03e7
+ 8 319311 21010319311 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.02e7
+ 9 341803 21010341803 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.02e7
+10 343514 21010343514 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.02e7
+# … with 1,426 more rows, 253 more variables: prov1t &lt;dbl+lbl&gt;,
+#   ur1new &lt;dbl+lbl&gt;, q1tb &lt;dbl+lbl&gt;, q2 &lt;dbl&gt;, wt &lt;dbl&gt;, weight1500 &lt;dbl&gt;,
+#   core_a_core_b &lt;chr&gt;, municipio1t &lt;dbl+lbl&gt;, a4 &lt;dbl+lbl&gt;,
+#   covid2at &lt;dbl+lbl&gt;, idio2 &lt;dbl+lbl&gt;, idio2cov &lt;dbl+lbl&gt;, fs2 &lt;dbl+lbl&gt;,
+#   fs2covidn &lt;dbl+lbl&gt;, it1 &lt;dbl+lbl&gt;, jc13 &lt;dbl+lbl&gt;, jc15a &lt;dbl+lbl&gt;,
+#   vic1ext &lt;dbl+lbl&gt;, aoj11 &lt;dbl+lbl&gt;, chm1bn &lt;dbl+lbl&gt;, chm2bn &lt;dbl+lbl&gt;,
+#   cses6n &lt;dbl+lbl&gt;, b0t &lt;dbl+lbl&gt;, b2 &lt;dbl+lbl&gt;, b3 &lt;dbl+lbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>lapop2021 <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(q2<span class="sc">&gt;</span><span class="dv">14</span> <span class="sc">|</span> q1tb<span class="sc">==</span><span class="dv">2</span>) <span class="co"># la condición que sea mujer O mayor de 14 años</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,998 × 262
+    idnum     uniq_id pais        year  wave nationality estrato…¹ strata    upm
+    &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl+lbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl+lbl&gt;   &lt;dbl+lbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 151925 21010151925 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.04e7
+ 2 231570 21010231570 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.01e7
+ 3 155969 21010155969 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.02e7
+ 4  69495 21010069495 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.02e7
+ 5 387944 21010387944 1 [México]  2021  2021 1 [Mexican… 104 [Sur] 1.00e8 1.03e7
+ 6 179554 21010179554 1 [México]  2021  2021 1 [Mexican… 104 [Sur] 1.00e8 1.01e7
+ 7 256258 21010256258 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.02e7
+ 8 243213 21010243213 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.01e7
+ 9 350983 21010350983 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.04e7
+10 390491 21010390491 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.03e7
+# … with 2,988 more rows, 253 more variables: prov1t &lt;dbl+lbl&gt;,
+#   ur1new &lt;dbl+lbl&gt;, q1tb &lt;dbl+lbl&gt;, q2 &lt;dbl&gt;, wt &lt;dbl&gt;, weight1500 &lt;dbl&gt;,
+#   core_a_core_b &lt;chr&gt;, municipio1t &lt;dbl+lbl&gt;, a4 &lt;dbl+lbl&gt;,
+#   covid2at &lt;dbl+lbl&gt;, idio2 &lt;dbl+lbl&gt;, idio2cov &lt;dbl+lbl&gt;, fs2 &lt;dbl+lbl&gt;,
+#   fs2covidn &lt;dbl+lbl&gt;, it1 &lt;dbl+lbl&gt;, jc13 &lt;dbl+lbl&gt;, jc15a &lt;dbl+lbl&gt;,
+#   vic1ext &lt;dbl+lbl&gt;, aoj11 &lt;dbl+lbl&gt;, chm1bn &lt;dbl+lbl&gt;, chm2bn &lt;dbl+lbl&gt;,
+#   cses6n &lt;dbl+lbl&gt;, b0t &lt;dbl+lbl&gt;, b2 &lt;dbl+lbl&gt;, b3 &lt;dbl+lbl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Veracruz - 30</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Puebla - 21</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Guanajuato - 11</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Nuevo León - 19</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>lapop2021 <span class="sc">%&gt;%</span> </span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(prov1t<span class="sc">%in%</span><span class="fu">c</span>(<span class="dv">100030</span>, <span class="dv">100021</span>, <span class="dv">100011</span>, <span class="dv">100019</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 535 × 262
+    idnum     uniq_id pais        year  wave nationality estrato…¹ strata    upm
+    &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl+lbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl+lbl&gt;   &lt;dbl+lbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 256258 21010256258 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.02e7
+ 2 354018 21010354018 1 [México]  2021  2021 1 [Mexican… 101 [Nor… 1.00e8 1.04e7
+ 3 116914 21010116914 1 [México]  2021  2021 1 [Mexican… 104 [Sur] 1.00e8 1.02e7
+ 4 113564 21010113564 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.01e7
+ 5 202687 21010202687 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.04e7
+ 6 228184 21010228184 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.31e7
+ 7 366379 21010366379 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.33e7
+ 8 216732 21010216732 1 [México]  2021  2021 1 [Mexican… 104 [Sur] 1.00e8 1.32e7
+ 9  89347 21010089347 1 [México]  2021  2021 1 [Mexican… 103 [Cen… 1.00e8 1.34e7
+10 115092 21010115092 1 [México]  2021  2021 1 [Mexican… 104 [Sur] 1.00e8 1.32e7
+# … with 525 more rows, 253 more variables: prov1t &lt;dbl+lbl&gt;, ur1new &lt;dbl+lbl&gt;,
+#   q1tb &lt;dbl+lbl&gt;, q2 &lt;dbl&gt;, wt &lt;dbl&gt;, weight1500 &lt;dbl&gt;, core_a_core_b &lt;chr&gt;,
+#   municipio1t &lt;dbl+lbl&gt;, a4 &lt;dbl+lbl&gt;, covid2at &lt;dbl+lbl&gt;, idio2 &lt;dbl+lbl&gt;,
+#   idio2cov &lt;dbl+lbl&gt;, fs2 &lt;dbl+lbl&gt;, fs2covidn &lt;dbl+lbl&gt;, it1 &lt;dbl+lbl&gt;,
+#   jc13 &lt;dbl+lbl&gt;, jc15a &lt;dbl+lbl&gt;, vic1ext &lt;dbl+lbl&gt;, aoj11 &lt;dbl+lbl&gt;,
+#   chm1bn &lt;dbl+lbl&gt;, chm2bn &lt;dbl+lbl&gt;, cses6n &lt;dbl+lbl&gt;, b0t &lt;dbl+lbl&gt;,
+#   b2 &lt;dbl+lbl&gt;, b3 &lt;dbl+lbl&gt;, b4 &lt;dbl+lbl&gt;, b6 &lt;dbl+lbl&gt;, b32 &lt;dbl+lbl&gt;, …</code></pre>
+</div>
 </div>
 </section>
 </section>
@@ -744,8 +875,8 @@ $chm2bn
 <p>A este data.frame podemos limpiarle los nombres, como vemos, sus nombres están “raros”. Esto pasa cuando usamos espacios, caracteres especiales o nombres muy largos.</p>
 <p>Veamos los nombre</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ICE_2022 <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ICE_2022 <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "id"                                                                 
  [2] "edo"                                                                
@@ -828,9 +959,9 @@ $chm2bn
 </div>
 <p>los vamos a limpiar:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ICE_2022 <span class="sc">%&gt;%</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ICE_2022 <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "id"                                                               
  [2] "edo"                                                              
@@ -913,16 +1044,16 @@ $chm2bn
 </div>
 <p>Pero! Tenemos que volver a declarar el objeto con los cambios para que se guarden en el objeto</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ICE_2022<span class="ot">&lt;-</span>ICE_2022 <span class="sc">%&gt;%</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>ICE_2022<span class="ot">&lt;-</span>ICE_2022 <span class="sc">%&gt;%</span> </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="otro-operador" class="level2">
 <h2 class="anchored" data-anchor-id="otro-operador">Otro operador</h2>
 <p>Esta operación de guardar las acciones del <em>pipe</em> <code>%&gt;%</code> en el mismo objeto del que inician, se puede hacer con otro operador muy parecido <code>%&lt;&gt;%</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ICE_2022 <span class="sc">%&lt;&gt;%</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>ICE_2022 <span class="sc">%&lt;&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¡Llevemos esta base a esquisse!</p>
 

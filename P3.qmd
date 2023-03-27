@@ -3,6 +3,7 @@ title: "Taller 3"
 ---
 
 ## Paquetes ---
+
 ```{r}
 if (!require("pacman")) install.packages("pacman") # instala pacman si se requiere
 pacman::p_load(tidyverse, readxl, writexl, haven, sjlabelled, pollster, magrittr) #carga los paquetes listados
@@ -21,7 +22,6 @@ ICE_2022 <- readxl::read_excel("datos/ICE_2022.xlsx", sheet = "para_importar")
 ```{r}
 lapop2021 <- haven::read_dta("datos/lapop2021.dta")
 ```
-
 
 ## Descriptivos para variables cuantitativas
 
@@ -48,17 +48,15 @@ lapop2021 %>%
 hist(lapop2021$q2)
 ```
 
-
 Le podemos modificar el título del eje de las x y de las y
 
 ```{r}
 hist(lapop2021$q2, 
-     main="Histograma de las edades de los entrevistados", 
+     main="Histograma de las q2des de los entrevistados", 
      xlab="Años cumplidos", ylab="Frecuencia") 
 ```
 
-
-##  Tabulados bivariados 
+## Tabulados bivariados
 
 ```{r}
 
@@ -77,7 +75,6 @@ lapop2021 %>%
   
 
 ```
-
 
 ## Ojeando
 
@@ -102,11 +99,12 @@ print(get_label(lapop2021[, 1:10])) #de las primeras 10 variables
 print(get_label(lapop2021$q2)) #
 ```
 
-### Selección de casos y de variables
+## Selección de casos y de variables
 
 Poco a poco vamos comprendiendo más la lógica de R. Hay varias "formas" de programar. Por lo que no te asustes si varios códigos llegan al mismo resultado
 
 Para revisar el contenido de un data frame podemos usar, como lo hicimos anteriormente, el formato basedq2tos\$var o usar corchete, checa como estas cuatro formas tan el mismo resultado.
+
 
 ```{r}
 x<-lapop2021$q2
@@ -116,12 +114,61 @@ x<-lapop2021[,"q2"]
 
 ```
 
+
+### `{select()}`
 Ahora, con el formato de dplyr podemos llegar a lo mismo
 
 ```{r}
 x<-lapop2021 %>% 
   select(q2)
 ```
+
+
+
+
+### `{filter()}`
+
+Los filtros seleccionan **casos** que cumplen con una condición. 
+
+- Se pueden usar varias condiciones con los operadores `&` y `|`
+
+- Se puede negar una condición con el operador `!`
+
+- El operador `%in%` o `match` puede combinarse con vectores como listas de elementos válidos en una variable
+
+Aquí unos ejemplos:
+
+```{r}
+
+lapop2021 %>% 
+  dplyr::filter(q2>14) # cumple con la condición de mayores de 14 años 
+
+
+lapop2021 %>% 
+  dplyr::filter(!q2>14) # NO cumple con la condición de mayores de 14 años
+
+
+lapop2021 %>% 
+  dplyr::filter(q2>14 & q1tb==2) # la condición que sea mujer Y mayor de 14 años
+
+
+
+lapop2021 %>% 
+  dplyr::filter(q2>14 | q1tb==2) # la condición que sea mujer O mayor de 14 años
+
+
+# Veracruz - 30
+# Puebla - 21
+# Guanajuato - 11
+# Nuevo León - 19
+
+
+lapop2021 %>% 
+  filter(prov1t%in%c(100030, 100021, 100011, 100019))
+
+
+```
+
 
 ## Limpieza de nombres
 
@@ -157,7 +204,5 @@ Esta operación de guardar las acciones del *pipe* `%>%` en el mismo objeto del 
 ICE_2022 %<>% 
   janitor::clean_names()
 ```
-
-
 
 ¡Llevemos esta base a esquisse!
